@@ -1,11 +1,13 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
 
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.0"
 
     defaultConfig {
-        applicationId "com.easyapp.simpletask"
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
@@ -21,4 +23,20 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+// You can then customize attributes of the publication as shown below.
+                groupId = 'com.github.Irineu333'
+                artifactId = 'highlight'
+                version = '1.0.4'
+            }
+        }
+    }
 }
